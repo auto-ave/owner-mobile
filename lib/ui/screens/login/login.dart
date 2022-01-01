@@ -1,3 +1,4 @@
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -135,14 +136,18 @@ class _LoginScreenState extends State<LoginScreen> {
                                 height: 40,
                                 color: SizeConfig.kPrimaryColor,
                                 animateOnTap: false,
-                                onPressed: () {
+                                onPressed: () async {
                                   if (_formKey.currentState != null) {
                                     if (_formKey.currentState!.validate()) {
                                       _btnController.start();
+                                      String? token = await FirebaseMessaging
+                                          .instance
+                                          .getToken();
+                                      print('tokennn' + token.toString());
                                       _emailAuthBloc.add(Login(
                                           email: _emailController.text,
                                           password: _passwordController.text,
-                                          fcmToken: ''));
+                                          fcmToken: token.toString()));
                                     }
                                   }
                                 },

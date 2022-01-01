@@ -30,8 +30,7 @@ class _UpcomingBookingsScreenState extends State<UpcomingBookingsScreen> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    _upcomingBookingsBloc = UpcomingBookingsBloc(
-        repository: RepositoryProvider.of<Repository>(context));
+    _upcomingBookingsBloc = BlocProvider.of<UpcomingBookingsBloc>(context);
     _upcomingBookingsBloc
         .add(GetUpcomingBookings(offset: 0, forLoadMore: false));
   }
